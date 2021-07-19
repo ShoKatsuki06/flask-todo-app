@@ -1,0 +1,92 @@
+
+/*フォームのcss*/
+.contact_form {
+	border-collapse: collapse;
+	margin: 0 auto;
+}
+/*tr*/
+.contact_form tr {
+	border-top: solid 1px #dddddd;
+}
+.contact_form tr:last-child {
+	border-bottom: solid 1px #dddddd;
+}
+/*th*/
+.contact_form th {
+	position: relative;
+	width: 280px;
+	padding: 20px;
+	background: #f9f9f9;
+	text-align: left;
+	vertical-align: top;
+	box-sizing: border-box;
+}
+.contact_form th.required:before {
+	content: "必須";
+	width: 48px;
+	height: 28px;
+	position: absolute;
+	top: 21px;
+	right: 20px;
+	background: #d70d19;
+	color: #ffffff;
+	font-size: 14px;
+	line-height: 28px;
+	text-align: center;
+}
+/*td*/
+.contact_form td {
+	padding: 14px 20px;
+	box-sizing: border-box;
+}
+.contact_form input[type="text"],
+.contact_form textarea {
+	max-width: 300px;
+	background: #f9f9f9;
+	border: solid 1px #dddddd;
+	font-size: 16px;
+	padding: 12px 20px;
+	transition: 0.3s ease-in-out;
+	box-sizing: border-box;
+	vertical-align: top;
+	outline: none;
+}
+.contact_form input[type="text"]:focus,
+.contact_form textarea:focus {
+	border-color: #d70d19;
+}
+.contact_form input[type="datetime-local"],
+.contact_form textarea {
+	max-width: 300px;
+	background: #f9f9f9;
+	border: solid 1px #dddddd;
+	font-size: 16px;
+	padding: 12px 20px;
+	transition: 0.3s ease-in-out;
+	box-sizing: border-box;
+	vertical-align: top;
+	outline: none;
+}
+.contact_form input[type="datetime-local"]:focus,
+.contact_form textarea:focus {
+	border-color: #d70d19;
+}
+/*ボタン*/
+.confirm_btn {
+	display: block;
+	width: 100%;
+	max-width: 200px;
+	margin: 30px auto 0;
+	padding: 0;
+	outline: none;
+	border: none;
+	background: #1d59be;
+	border-radius: 40px;
+	color: #ffffff;
+	font-size: 16px;
+	font-weight: bold;
+	height: 40px;
+	line-height: 40px;
+	text-align: center;
+	cursor: pointer;
+}

@@ -1,26 +1,34 @@
-{% extends "base.html" %}
-
+{% extends 'base.html' %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  href="css/style.css">
+    <script src="js/javascript.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
 {% block body %}
 <h1>TODO登録画面</h1>
 <div class="form">
   <form action="/" method="POST">
-    <table>
+    <table  class="contact_form">
       <tr>
-        <th><label for="title">Title</label></th>
-        <td><input type="text" name="title"></td>
+        <th class="required"><label for="title">タイトル</label></th>
+        <td><input type="text" name="title" placeholder="タイトル" required></td>
       </tr>
       <tr>
-        <th><label for="detail">Detail</label></th>
-        <td><input type="text" name="detail"></td>
+        <th class="required"><label for="detail">詳細</label></th>
+        <td><textarea type="text" name="detail" placeholder="詳細内容" cols=22 rows=5 required></textarea></td>
       </tr>
       <tr>
-        <th><label for="due">Due</label></th>
-        <td><input type="date" name="due" required></td>
-      </tr>
-      <tr>
-        <td><button type="submit" name="Create" value="Create">登録</button></td>
+        <th class="required"><label for="due">日時</label></th>
+        <td><input type="datetime-local" name="due" required></td>
       </tr>
     </table>
+    <button type="submit" name="Create" value="Create" class="confirm_btn">登録</button>
   </form>
 </div>
 {% endblock %}

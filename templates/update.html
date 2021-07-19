@@ -4,23 +4,21 @@
 <h1>編集</h1>
 <div class="form">
   <form action="/update/{{ post.id }}" method='POST'>
-    <table>
+    <table class="contact_form">
       <tr>
-        <th><label for="title">Title</label></th>
+        <th><label for="title">タイトル</label></th>
         <td><input type="text" name="title" value={{ post.title }}></td>
       </tr>
       <tr>
-        <th><label for="detail">Detail</label></th>
-        <td><input type="text" name="detail" value={{ post.detail }}></td>
+        <th><label for="detail">詳細</label></th>
+        <td><textarea type="text" name="detail" placeholder="詳細内容" cols=22 rows=5 required>{{ post.detail }}</textarea></td>
       </tr>
       <tr>
-        <th><label for="due">Due</label></th>
-        <td><input type="date" name="due" value={{ post.due.date() }} required></td>
-      </tr>
-      <tr>
-        <td><button type="submit" name="Change" value="Change">登録</button></td>
+        <th><label for="due">日時</label></th>
+        <td><input type="date" name="due" value={{ post.due.date() }}></td>
       </tr>
     </table>
+    <button type="submit" name="Change" value="Change" class="confirm_btn">更新</button>
   </form>
 </div>
 {% endblock %}
