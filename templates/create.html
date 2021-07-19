@@ -1,15 +1,26 @@
 {% extends "base.html" %}
 
 {% block body %}
+<h1>TODO登録画面</h1>
 <div class="form">
-    <form action="/" method="POST">
-        <label for="title">Title</label>
-        <input type="text" name="title">
-        <label for="detail">Detail</label>
-        <input type="text" name="detail">
-        <label for="due">Due</label>
-        <input type="date" name="due" required>
-        <input type="submit" value="Create">
-    </form>
+  <form action="/" method="POST">
+    <table>
+      <tr>
+        <th><label for="title">Title</label></th>
+        <td><input type="text" name="title"></td>
+      </tr>
+      <tr>
+        <th><label for="detail">Detail</label></th>
+        <td><input type="text" name="detail"></td>
+      </tr>
+      <tr>
+        <th><label for="due">Due</label></th>
+        <td><input type="date" name="due" required></td>
+      </tr>
+      <tr>
+        <td><button type="submit" name="Create" value="Create">登録</button></td>
+      </tr>
+    </table>
+  </form>
 </div>
 {% endblock %}
