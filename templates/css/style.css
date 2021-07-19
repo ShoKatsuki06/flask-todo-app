@@ -1,3 +1,27 @@
+/*全体*/
+body {
+   font-family:'Noto Sans JP',sans-serif;
+   background-color:#f6f5f4;
+}
+
+/*スライダーメニュー*/
+.side {
+  background-color:#184da3;
+  width:250px;
+  height:100vh;
+  text-align:center;
+}
+.side img {
+	width: 250px;
+}
+/*メインコンテンツ*/
+.content {
+  margin-left:10px;/*サイドバーとメインコンテンツの間に隙間*/
+}
+/*サイドバーとメインコンテンツを横並びにする*/
+article {
+  display:flex;
+}
 
 /*フォームのcss*/
 .contact_form {
