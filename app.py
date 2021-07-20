@@ -13,9 +13,6 @@ import os
 
 app = Flask(__name__)
 
-if __name__=="__main__":
-    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)))
-
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
 # LINE APIを定義。引数にアクセストークンを与える。
@@ -133,3 +130,6 @@ def update(id):
         db.commit()
         #db.session.commit()
         return redirect("/")
+
+if __name__=="__main__":
+    app.run(debug=True)
