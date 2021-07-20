@@ -112,15 +112,7 @@ def delete(id):
     #db.session.commit()
     return redirect("/")
 #完了
-@app.route("/success/<int:id>")
-def delete(id):
-    cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
 
-    #db.commit()
-    #post = Post.query.get(id)
-    #db.session.delete(post)
-    #db.session.commit()
-    return redirect("/")
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
