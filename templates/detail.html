@@ -1,10 +1,40 @@
 {% extends "base.html" %}
 
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  href="css/style.css">
+    <link rel="stylesheet"  href="css/reset.css">
+    <script src="js/javascript.js"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+  <article>
+    <div class="side">
+      <p><a href="index.html"><img src="img/logo_transparent.png"></a></p>
+      {% for post in posts %}
+      <p><a href="/detail/{{post[0]}}" role="button">Detail</a></p>
+      <p><a href="/delete/{{post[0]}}" role="button">Delete</a></p>
+      <p><a href="/update/{{post[0]}}" role="button">Update</a></p>
+      {% endfor %}
+    </div>
+    <div class="content">
+      {% block body %}
+
 {% block body %}
 <h1>詳細</h1>
-
-<h2>{{post[1]}}</h2>
-<p>{{post[2]}}</p>
-<p>{{post[3]}}</p>
-
+<table class="table">
+  <tr>
+    <th>{{post[1]}}</th>
+  </tr>
+  <tr>
+   <td>{{post[2]}}</td>
+  </tr>
+  <tr>
+   <td>{{post[3]}}</td>
+  </tr>
+</table>
 {% endblock %}
