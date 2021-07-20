@@ -3,10 +3,38 @@ from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import mysql.connector
 import pymysql.cursors
+from flask import Flask, request, abort
+from linebot import (
+    LineBotApi, WebhookHandler
+)
+from linebot.exceptions import (
+    InvalidSignatureError
+)
+from linebot.models import (
+    MessageEvent, TextMessage, TextSendMessage,
+)
+
+import schedule
+import time
 
 app = Flask(__name__)
-# データベースの接続設定
 
+LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
+LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
+# LINE APIを定義。引数にアクセストークンを与える。
+line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
+
+def sendText(text_message):
+   try:
+    # ラインユーザIDは配列で指定する。
+    line_bot_api.multicast(
+    [LINE_USER_ID], TextSendMessage(text=text_message))
+   except LineBotApiError as e:
+    # エラーが起こり送信できなかった場合
+    print(e)
+
+
+# データベースの接続設定
 dns = {
     'user': 'b7933a15d37230',
     'host': 'us-cdbr-east-04.cleardb.com', # 各自設定
@@ -46,14 +74,15 @@ def index():
        detail = request.form.get('detail')
        due = request.form.get('due')
        print(due)
-       #due = datetime.strptime(due, '%Y-%m-%d')
-       #new_post = Post(title=title, detail=detail, due=due)
        sql = "INSERT INTO todo (title,detail,due ) VALUES (%s, %s, %s);"
        cursor.execute(sql,(title,detail,due))
        db.commit()
+       #LINE送信
+       sendText("TODOを登録しました")
        #db.session.add(new_post)
        #db.session.commit()
        return redirect('/')
+
 #作成画面
 @app.route("/create")
 def create():
