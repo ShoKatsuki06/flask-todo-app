@@ -7,9 +7,9 @@
 {% for post in posts %}
     <h2>タイトル : {{ post[1] }}</h2>
     <p>期限 ： {{ post[3] }}</p>
-    <p><a href="/detail/{{post.id}}" role="button">Detail</a></p>
-    <p><a href="/delete/{{post.id}}" role="button">Delete</a></p>
-    <p><a href="/update/{{post.id}}" role="button">Update</a></p>
+    <p><a href="/detail/{{post[0]}}" role="button">Detail</a></p>
+    <p><a href="/delete/{{post[0]}}" role="button">Delete</a></p>
+    <p><a href="/update/{{post[0]}}" role="button">Update</a></p>
 {% endfor %}
 {% endblock %}
 　
