@@ -24,11 +24,26 @@ article {
   display:flex;
 }
 
+.multiple_table{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+}
+
 /*汎用型*/
 .table{
-  margin: auto;
+  width:45%;
+  margin-right: 30px;
+  margin-bottom: 30px;
   border-collapse: separate;
   border-spacing: 0px 0.5rem;
+  border-collapse: collapse;
+}
+th.table,td.table {
+  border: solid 2px #000000;
+}
+td.noborder{
+  border: none;
 }
 .button {
   color: #ffffff;
@@ -36,7 +51,6 @@ article {
   padding: 5px 15px;
   display: inline-block;
   border-radius: 5px;
-  border: none;
   cursor: pointer;
   border: solid 2px #1d59be;
   transition: .4s;
@@ -105,6 +119,7 @@ article {
 .contact_form input[type="datetime-local"],
 .contact_form textarea {
 	max-width: 300px;
+  width:100%;
 	background: #f9f9f9;
 	border: solid 1px #dddddd;
 	font-size: 16px;
@@ -126,7 +141,6 @@ article {
 	margin: 30px auto 0;
 	padding: 0;
 	outline: none;
-	border: none;
 	background: #1d59be;
 	border-radius: 40px;
 	color: #ffffff;
