@@ -2,9 +2,15 @@
 
 {% block body %}
 <h1>詳細</h1>
-
-<h2>{{post.title}}</h2>
-<p>{{post.detail}}</p>
-<p>{{post.due.date()}}</p>
-
+<table class="table">
+  <tr>
+    <th>{{post[1]}}</th>
+  </tr>
+  <tr>
+   <td>{{post[2]}}</td>
+  </tr>
+  <tr>
+   <td>{{post[3]}}</td>
+  </tr>
+</table>
 {% endblock %}

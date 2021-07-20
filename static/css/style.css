@@ -7,20 +7,43 @@ body {
 /*スライダーメニュー*/
 .side {
   background-color:#184da3;
-  width:250px;
+  width:200px;
   height:100vh;
   text-align:center;
 }
 .side img {
-	width: 250px;
+	width: 100%;
 }
 /*メインコンテンツ*/
 .content {
-  margin-left:10px;/*サイドバーとメインコンテンツの間に隙間*/
+  margin-left:100px;/*サイドバーとメインコンテンツの間に隙間*/
+  text-align: center;
 }
 /*サイドバーとメインコンテンツを横並びにする*/
 article {
   display:flex;
+}
+
+/*汎用型*/
+.table{
+  margin: auto;
+  border-collapse: separate;
+  border-spacing: 0px 0.5rem;
+}
+.button {
+  color: #ffffff;
+  background: #1d59be;
+  padding: 5px 15px;
+  display: inline-block;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  border: solid 2px #1d59be;
+  transition: .4s;
+}
+.button:hover {
+  background: #ffffff;
+  color: #1d59be;
 }
 
 /*フォームのcss*/
@@ -113,4 +136,10 @@ article {
 	line-height: 40px;
 	text-align: center;
 	cursor: pointer;
+  border: solid 2px #1d59be;
+  transition: .4s;
+}
+.confirm_btn:hover {
+  background: #ffffff;
+  color: #1d59be;
 }
