@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect
+from flask import Flask,render_template,request,redirect,url_for
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import mysql.connector
@@ -13,9 +13,9 @@ from linebot.exceptions import (
 from linebot.models import (
     MessageEvent, TextMessage, TextSendMessage,
 )
-
 import schedule
 import time
+import os
 
 app = Flask(__name__)
 
@@ -56,6 +56,18 @@ cursor.execute("USE heroku_fab7e2e9408003b")
 db.commit()
 db.ping(reconnect=True)
 
+@app.context_processor
+def override_url_for():
+    return dict(url_for=dated_url_for)
+
+def dated_url_for(endpoint, **values):
+    if endpoint == 'static':
+        filename = values.get('filename', None)
+        if filename:
+            file_path = os.path.join(app.root_path,
+                                 endpoint, filename)
+            values['q'] = int(os.stat(file_path).st_mtime)
+    return url_for(endpoint, **values)
 #class Post(db.Model):
     #id = db.Column(db.Integer, primary_key=True)
     #title = db.Column(db.String(30), nullable=False)
@@ -122,7 +134,6 @@ def update(id):
         db.commit()
         #db.session.commit()
         return redirect("/")
-
 
 if __name__=="__main__":
     app.run(debug=True)
