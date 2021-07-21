@@ -4,15 +4,9 @@ from datetime import datetime
 import mysql.connector
 import pymysql.cursors
 from flask import Flask, request, abort
-from linebot import (
-    LineBotApi, WebhookHandler
-)
-from linebot.exceptions import (
-    InvalidSignatureError
-)
-from linebot.models import (
-    MessageEvent, TextMessage, TextSendMessage,
-)
+from linebot import (LineBotApi, WebhookHandler)
+from linebot.exceptions import (InvalidSignatureError)
+from linebot.models import (MessageEvent, TextMessage, TextSendMessage,)
 import schedule
 import time
 import os
@@ -111,12 +105,13 @@ def read(id):
 @app.route("/delete/<int:id>")
 def delete(id):
     cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
-
-    #db.commit()
+    db.commit()
     #post = Post.query.get(id)
     #db.session.delete(post)
     #db.session.commit()
     return redirect("/")
+#完了
+
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
