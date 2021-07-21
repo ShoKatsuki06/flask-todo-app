@@ -106,7 +106,7 @@ def read(id):
 def delete(id):
     cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
 
-    #db.commit()
+    db.commit()
     #post = Post.query.get(id)
     #db.session.delete(post)
     #db.session.commit()
