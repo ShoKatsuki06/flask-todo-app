@@ -24,12 +24,12 @@ article {
   display:flex;
 }
 
+/*複数のテーブルを見やすいように*/
 .multiple_table{
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
 }
-
 /*汎用型*/
 .table{
   width:45%;

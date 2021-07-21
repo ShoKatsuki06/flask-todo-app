@@ -4,12 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet"  href="{{ url_for('static',filename='css/style.css') }}">
     <link rel="stylesheet"  href="{{ url_for('static',filename='css/reset.css') }}">
-    <script src="js/javascript.js"></script>
+    <link rel="stylesheet"  href="{{ url_for('static',filename='css/style.css') }}">
+    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static',filename='js/javascript.js') }}"></script>
     {% block head %}{% endblock %}
 </head>
 <body>
+<div class="word">LOADING...</div>
+<div class="overlay"></div>
   <article>
     <div class="side">
       <p><a href="index.html"><img src="{{ url_for('static',filename='img/logo-2-kiri.png') }}"></a></p>
