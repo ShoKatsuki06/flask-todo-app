@@ -62,11 +62,6 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
-#class Post(db.Model):
-    #id = db.Column(db.Integer, primary_key=True)
-    #title = db.Column(db.String(30), nullable=False)
-    #detail = db.Column(db.String(100))
-    #due = db.Column(db.DateTime, nullable=False)"'
 #メインメニュー
 @app.route("/",methods = ["GET","POST"])
 def index():
