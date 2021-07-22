@@ -43,13 +43,13 @@ row = cursor.fetchall()
 db.commit()
 
 text_message = ("あなたの残っているTodoは\r\n")
+#Todoの書き出し
 for r in row :
     rm = (r[1]+","+r[2]+","+str(r[3]))
     rmessage = ("{}\r\n".format(rm))
     text_message = text_message + rmessage
-
+#ラインで送るやつのメソッド定義
 def text(text_message):
-
   try:
     # ラインユーザIDは配列で指定する。
     line_bot_api.multicast(
@@ -57,5 +57,6 @@ def text(text_message):
   except LineBotApiError as e:
     # エラーが起こり送信できなかった場合
     print(e)
+#送信
 text_message = text_message + "です"
 text(text_message)
