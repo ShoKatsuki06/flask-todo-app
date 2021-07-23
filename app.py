@@ -65,7 +65,7 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
-       cursor.execute('SELECT * FROM todo LIMIT 10;')
+       cursor.execute('SELECT * FROM todo LIMIT 10;')#上限は10個
        rows = cursor.fetchall()
        #posts = Post.query.all()
        return render_template("index.html", posts = rows )
