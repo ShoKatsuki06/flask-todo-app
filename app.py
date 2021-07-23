@@ -38,11 +38,7 @@ dns = {
 #db = MySQL(**dns)
 #db = mysql.connector.connect(**dns)
 
-if db.is_connected():
-    print("データベースへの接続が成功しました。")
-else:
-    print("データベースへの接続が失敗しました。")
-    exit(1)
+
 
 #cursor = db.cursor(buffered=True)
 #cursor.execute("USE heroku_fab7e2e9408003b")
