@@ -132,6 +132,22 @@ td.noborder{
 .contact_form textarea:focus {
 	border-color: #d70d19;
 }
+.contact_form input[type="password"],
+.contact_form textarea {
+	max-width: 300px;
+	background: #f9f9f9;
+	border: solid 1px #dddddd;
+	font-size: 16px;
+	padding: 12px 20px;
+	transition: 0.3s ease-in-out;
+	box-sizing: border-box;
+	vertical-align: top;
+	outline: none;
+}
+.contact_form input[type="password"]:focus,
+.contact_form textarea:focus {
+	border-color: #d70d19;
+}
 .contact_form input[type="datetime-local"],
 .contact_form textarea {
 	max-width: 300px;
