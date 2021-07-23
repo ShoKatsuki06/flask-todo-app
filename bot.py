@@ -42,7 +42,7 @@ cursor.execute('SELECT * FROM todo')
 row = cursor.fetchall()
 db.commit()
 
-text_message = ("あなたの残っているTodoは\r\n----------------")
+text_message = ("あなたの残っているTodoは\r\n----------------\r\n")
 #Todoの書き出し
 for r in row :
     rm = (r[1]+","+r[2]+","+str(r[3]))
