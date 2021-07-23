@@ -7,7 +7,7 @@ body {
 /*スライダーメニュー*/
 .side {
   background-color:#184da3;
-  width:200px;
+  width:15%;
   height:100vh;
   text-align:center;
 }
@@ -16,6 +16,8 @@ body {
 }
 /*メインコンテンツ*/
 .content {
+  background: red;
+  width: 100%;
   margin-left:100px;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
 }
@@ -23,21 +25,31 @@ body {
 article {
   display:flex;
 }
+.top{
+  background: #fff;
+  margin:auto;
+  margin-top:10vh;
+  font-size: 5vh;
+}
 
 /*複数のテーブルを見やすいように*/
 .multiple_table{
+  background: #f0f;
+  margin:auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
 }
 /*汎用型*/
 .table{
-  width:45%;
-  margin-right: 30px;
+  /* width:50vh; */
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 30px;
   border-collapse: separate;
   border-spacing: 0px 0.5rem;
-  border-collapse: collapse;
 }
 th.table,td.table {
   border: solid 2px #000000;
