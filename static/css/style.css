@@ -7,7 +7,7 @@ body {
 /*スライダーメニュー*/
 .side {
   background-color:#184da3;
-  width:200px;
+  width:15%;
   height:100vh;
   text-align:center;
 }
@@ -16,6 +16,8 @@ body {
 }
 /*メインコンテンツ*/
 .content {
+  /* background: red; */
+  width: 100%;
   margin-left:100px;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
 }
@@ -23,21 +25,35 @@ body {
 article {
   display:flex;
 }
+/*TOP要素*/
+.top{
+  /* background: #fff; */
+  margin-top: 10vh;
+  font-size: 5vh;
+}
+.top table{
+  margin: auto;
+  margin-top: 10vh;
+}
 
 /*複数のテーブルを見やすいように*/
 .multiple_table{
+  /* background: #f0f; */
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
-  justify-content: flex-start;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
 }
 /*汎用型*/
 .table{
-  width:45%;
-  margin-right: 30px;
+  /* width:50vh; */
+  margin-left: 20px;
+  margin-right: 20px;
   margin-bottom: 30px;
   border-collapse: separate;
   border-spacing: 0px 0.5rem;
-  border-collapse: collapse;
 }
 th.table,td.table {
   border: solid 2px #000000;
@@ -113,6 +129,22 @@ td.noborder{
 	outline: none;
 }
 .contact_form input[type="text"]:focus,
+.contact_form textarea:focus {
+	border-color: #d70d19;
+}
+.contact_form input[type="password"],
+.contact_form textarea {
+	max-width: 300px;
+	background: #f9f9f9;
+	border: solid 1px #dddddd;
+	font-size: 16px;
+	padding: 12px 20px;
+	transition: 0.3s ease-in-out;
+	box-sizing: border-box;
+	vertical-align: top;
+	outline: none;
+}
+.contact_form input[type="password"]:focus,
 .contact_form textarea:focus {
 	border-color: #d70d19;
 }
