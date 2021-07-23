@@ -1,5 +1,4 @@
 from flask import Flask,render_template,request,redirect,url_for
-from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 import mysql.connector
 import pymysql.cursors
@@ -45,7 +44,7 @@ else:
     print("データベースへの接続が失敗しました。")
     exit(1)
 
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 cursor.execute("USE heroku_fab7e2e9408003b")
 db.commit()
 db.ping(reconnect=True)
@@ -66,7 +65,7 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
-       cursor.execute('SELECT * FROM todo;')
+       cursor.execute('SELECT * FROM todo LIMIT 10;')#上限は10個
        rows = cursor.fetchall()
        #posts = Post.query.all()
        return render_template("index.html", posts = rows )
@@ -79,7 +78,7 @@ def index():
        cursor.execute(sql,(title,detail,due))
        db.commit()
        #LINE送信
-       sendText("TODOを登録しました")
+       sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
        #db.session.add(new_post)
        #db.session.commit()
        return redirect('/')
@@ -91,7 +90,7 @@ def create():
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
-    cursor.execute('SELECT * FROM todo WHERE id = %s',(id,) )
+    cursor.execute('SELECT * FROM todo WHERE id = %s LIMIT 1',(id,) )
     row = cursor.fetchone()
     db.commit()
     #post = Post.query.get(id)
