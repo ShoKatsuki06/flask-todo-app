@@ -44,7 +44,7 @@ else:
     print("データベースへの接続が失敗しました。")
     exit(1)
 
-cursor = db.cursor()
+cursor = db.cursor(buffered=True)
 cursor.execute("USE heroku_fab7e2e9408003b")
 db.commit()
 db.ping(reconnect=True)
