@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class="top">
 <h1>編集</h1>
 <div class="form">
   <form action="/update/{{ post[0]}}" method='POST'>
@@ -20,5 +21,6 @@
     </table>
     <button type="submit" name="Change" value="Change" class="confirm_btn">更新</button>
   </form>
+</div>
 </div>
 {% endblock %}
