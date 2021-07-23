@@ -26,24 +26,47 @@ def sendText(text_message):
     # エラーが起こり送信できなかった場合
     print(e)
 
-
-# データベースの接続設定
-dns = {
+def dbstart():# データベースの接続設定]
+     dns = {
     'user': 'b7933a15d37230',
     'host': 'us-cdbr-east-04.cleardb.com', # 各自設定
     'password': 'da33b80d', # 各自設定
     'database': 'heroku_fab7e2e9408003b', # 各自設定
-    'port': '3306'
-}
-#db = MySQL(**dns)
-#db = mysql.connector.connect(**dns)
+    'port': '3306'}
+     db = mysql.connector.connect(**dns)
+     return db
 
+def selctcommand(db,sql):
+     cursor = db.cursor(buffered = True)
+     cursor.execute(sql)#上限は10個
+     rows = cursor.fetchall()
+     cursor.close()
+     db.close()
+     return rows
 
+def selctcommand1(db,sql,id):
+     cursor = db.cursor(buffered = True)
+     cursor.execute(sql,id)#上限は10個
+     rows = cursor.fetchone()
+     cursor.close()
+     db.close()
+     return rows
 
-#cursor = db.cursor(buffered=True)
-#cursor.execute("USE heroku_fab7e2e9408003b")
-#db.commit()
-#db.ping(reconnect=True)
+def sqlcommand(db,sql):
+    db = mysql.connector.connect(**dns)
+    cursor = db.cursor(buffered = True)
+    cursor.execute(sql)
+    db.commit()
+    cursor.close()
+    db.close()
+
+def sqlcommand1(db,sql,id):#値の指定がある場合はこちらのメソッドを使います
+    cursor = db.cursor(buffered = True)
+    cursor.execute(sql,id)
+    db.commit()
+    cursor.close()
+    db.close()
+
 
 @app.context_processor
 def override_url_for():
@@ -61,13 +84,9 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
-       db = mysql.connector.connect(**dns)
-       cursor = db.cursor(buffered = True)
-       cursor.execute('SELECT * FROM todo LIMIT 10;')#上限は10個
-       rows = cursor.fetchall()
-       cursor.close()
-       db.close()
-       #posts = Post.query.all()
+       db = dbstart()
+       sql = 'SELECT * FROM todo LIMIT 10;'
+       rows = selctcommand(db,sql)
        return render_template("index.html", posts = rows )
     else:#登録
        title = request.form.get('title')
@@ -75,16 +94,8 @@ def index():
        due = request.form.get('due')
        print(due)
        sql = "INSERT INTO todo (title,detail,due ) VALUES (%s, %s, %s);"
-       db = mysql.connector.connect(**dns)
-       cursor = db.cursor(buffered = True)
-       cursor.execute(sql,(title,detail,due))
-       db.commit()
-       #LINE送信
+       sqlcommand1(dbstart(),sql,(title,detail,due))
        sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
-       #db.session.add(new_post)
-       #db.session.commit()
-       cursor.close()
-       db.close()
        return redirect('/')
 
 #作成画面
@@ -94,52 +105,28 @@ def create():
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
-    db = mysql.connector.connect(**dns)
-    cursor = db.cursor(buffered = True)
-    cursor.execute('SELECT * FROM todo WHERE id = %s LIMIT 1',(id,) )
-    row = cursor.fetchone()
-    db.commit()
-    cursor.close()
-    db.close()
-    #post = Post.query.get(id)
+    db = dbstart()
+    row = selctcommand1(db,'SELECT * FROM todo WHERE id = %s LIMIT 1',(id,))
     return render_template("detail.html", post = row)
 #削除
 @app.route("/delete/<int:id>")
 def delete(id):
-    db = mysql.connector.connect(**dns)
-    cursor = db.cursor(buffered = True)
-    cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
-    db.commit()
-    #post = Post.query.get(id)
-    #db.session.delete(post)
-    #db.session.commit()
-    cursor.close()
-    db.close()
+    sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
     return redirect("/")
 #完了
 
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
-    db = mysql.connector.connect(**dns)
-    cursor = db.cursor(buffered = True)
-    cursor.execute('SELECT * FROM todo WHERE id = %s',(id,))
-    row = cursor.fetchone()
-    db.commit()
-    db.close()
-    #post = Post.query.get(id)
+    row = selctcommand1(dbstart(),'SELECT * FROM todo WHERE id = %s',(id,))
+    print(row)
     if request.method =="GET":
         return render_template("update.html",post=row)
     else:
         title = request.form.get("title")
         detail = request.form.get("detail")
         due = request.form.get("due")
-        db = mysql.connector.connect(**dns)
-        cursor = db.cursor(buffered = True)
-        cursor.execute('UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
-        db.commit()
-        db.close()
-        #db.session.commit()
+        sqlcommand1(dbstart(),'UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
         return redirect("/")
 
 if __name__=="__main__":
