@@ -25,16 +25,21 @@ body {
 article {
   display:flex;
 }
+/*TOP要素*/
 .top{
   /* background: #fff; */
-  margin-top:10vh;
+  margin-top: 10vh;
   font-size: 5vh;
+}
+.top table{
+  margin: auto;
+  margin-top: 10vh;
 }
 
 /*複数のテーブルを見やすいように*/
 .multiple_table{
   /* background: #f0f; */
-  margin:auto;
+  margin: auto;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
