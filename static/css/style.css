@@ -16,7 +16,7 @@ body {
 }
 /*メインコンテンツ*/
 .content {
-  background: red;
+  /* background: red; */
   width: 100%;
   margin-left:100px;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
@@ -26,15 +26,14 @@ article {
   display:flex;
 }
 .top{
-  background: #fff;
-  margin:auto;
+  /* background: #fff; */
   margin-top:10vh;
   font-size: 5vh;
 }
 
 /*複数のテーブルを見やすいように*/
 .multiple_table{
-  background: #f0f;
+  /* background: #f0f; */
   margin:auto;
   display: flex;
   flex-wrap: wrap;
