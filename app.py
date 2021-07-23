@@ -106,6 +106,8 @@ def delete(id):
     #db.session.commit()
     return redirect("/")
 #完了
+@app.route("/finish/<int:id>")
+def finish(id):
 
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
@@ -126,4 +128,4 @@ def update(id):
         return redirect("/")
 
 if __name__=="__main__":
-    app.run(debug=True)
+    app.run(debug=True,threaded=True)
