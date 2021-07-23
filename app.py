@@ -65,7 +65,7 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
-       cursor.execute('SELECT * FROM todo;')
+       cursor.execute('SELECT * FROM todo LIMIT 10;')
        rows = cursor.fetchall()
        #posts = Post.query.all()
        return render_template("index.html", posts = rows )
@@ -90,7 +90,7 @@ def create():
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
-    cursor.execute('SELECT * FROM todo WHERE id = %s',(id,) )
+    cursor.execute('SELECT * FROM todo WHERE id = %s LIMIT 1',(id,) )
     row = cursor.fetchone()
     db.commit()
     #post = Post.query.get(id)
