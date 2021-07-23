@@ -114,8 +114,18 @@ def delete(id):
     sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
     return redirect("/")
 #完了
-
-#編集
+@app.route("/finish/<int:id>")
+def finish(id):
+    sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
+    num = selctcommand1(dbstar(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1',date.today())
+    if num == null:
+        sqlcommand(dbstart(),'INSERT INTO todofinish (day,noa) VALUES (%s, %s);',(date.today(),1))
+        return redirect("/")
+    else:
+        sum = num[1]+1
+        sqlcommand(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date.today()))
+        return redirect("/")
+#編集""
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
     row = selctcommand1(dbstart(),'SELECT * FROM todo WHERE id = %s',(id,))
