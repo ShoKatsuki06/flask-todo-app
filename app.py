@@ -106,8 +106,6 @@ def delete(id):
     #db.session.commit()
     return redirect("/")
 #完了
-@app.route("/finish/<int:id>")
-def finish(id):
 
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
