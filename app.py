@@ -78,7 +78,7 @@ def index():
        cursor.execute(sql,(title,detail,due))
        db.commit()
        #LINE送信
-       sendText("TODOを登録しました")
+       sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
        #db.session.add(new_post)
        #db.session.commit()
        return redirect('/')
