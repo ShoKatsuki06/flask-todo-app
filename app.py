@@ -36,7 +36,7 @@ dns = {
     'port': '3306'
 }
 #db = MySQL(**dns)
-db = mysql.connector.connect(**dns)
+#db = mysql.connector.connect(**dns)
 
 if db.is_connected():
     print("データベースへの接続が成功しました。")
@@ -65,10 +65,12 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
+       db = mysql.connector.connect(**dns)
        cursor = db.cursor(buffered = True)
        cursor.execute('SELECT * FROM todo LIMIT 10;')#上限は10個
        rows = cursor.fetchall()
        cursor.close()
+       db.close()
        #posts = Post.query.all()
        return render_template("index.html", posts = rows )
     else:#登録
@@ -77,6 +79,7 @@ def index():
        due = request.form.get('due')
        print(due)
        sql = "INSERT INTO todo (title,detail,due ) VALUES (%s, %s, %s);"
+       db = mysql.connector.connect(**dns)
        cursor = db.cursor(buffered = True)
        cursor.execute(sql,(title,detail,due))
        db.commit()
@@ -85,6 +88,7 @@ def index():
        #db.session.add(new_post)
        #db.session.commit()
        cursor.close()
+       db.close()
        return redirect('/')
 
 #作成画面
@@ -94,16 +98,19 @@ def create():
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
+    db = mysql.connector.connect(**dns)
     cursor = db.cursor(buffered = True)
     cursor.execute('SELECT * FROM todo WHERE id = %s LIMIT 1',(id,) )
     row = cursor.fetchone()
     db.commit()
     cursor.close()
+    db.close()
     #post = Post.query.get(id)
     return render_template("detail.html", post = row)
 #削除
 @app.route("/delete/<int:id>")
 def delete(id):
+    db = mysql.connector.connect(**dns)
     cursor = db.cursor(buffered = True)
     cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
     db.commit()
@@ -111,15 +118,19 @@ def delete(id):
     #db.session.delete(post)
     #db.session.commit()
     cursor.close()
+    db.close()
     return redirect("/")
 #完了
 
 #編集
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
+    db = mysql.connector.connect(**dns)
+    cursor = db.cursor(buffered = True)
     cursor.execute('SELECT * FROM todo WHERE id = %s',(id,))
     row = cursor.fetchone()
     db.commit()
+    db.close()
     #post = Post.query.get(id)
     if request.method =="GET":
         return render_template("update.html",post=row)
@@ -127,8 +138,11 @@ def update(id):
         title = request.form.get("title")
         detail = request.form.get("detail")
         due = request.form.get("due")
+        db = mysql.connector.connect(**dns)
+        cursor = db.cursor(buffered = True)
         cursor.execute('UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
         db.commit()
+        db.close()
         #db.session.commit()
         return redirect("/")
 
