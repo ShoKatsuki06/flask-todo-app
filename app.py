@@ -44,10 +44,10 @@ else:
     print("データベースへの接続が失敗しました。")
     exit(1)
 
-cursor = db.cursor(buffered=True)
-cursor.execute("USE heroku_fab7e2e9408003b")
-db.commit()
-db.ping(reconnect=True)
+#cursor = db.cursor(buffered=True)
+#cursor.execute("USE heroku_fab7e2e9408003b")
+#db.commit()
+#db.ping(reconnect=True)
 
 @app.context_processor
 def override_url_for():
@@ -65,8 +65,10 @@ def dated_url_for(endpoint, **values):
 @app.route("/",methods = ["GET","POST"])
 def index():
     if request.method == "GET":
+       cursor = db.cursor(buffered = True)
        cursor.execute('SELECT * FROM todo LIMIT 10;')#上限は10個
        rows = cursor.fetchall()
+       cursor.close()
        #posts = Post.query.all()
        return render_template("index.html", posts = rows )
     else:#登録
@@ -75,12 +77,14 @@ def index():
        due = request.form.get('due')
        print(due)
        sql = "INSERT INTO todo (title,detail,due ) VALUES (%s, %s, %s);"
+       cursor = db.cursor(buffered = True)
        cursor.execute(sql,(title,detail,due))
        db.commit()
        #LINE送信
        sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
        #db.session.add(new_post)
        #db.session.commit()
+       cursor.close()
        return redirect('/')
 
 #作成画面
@@ -90,19 +94,23 @@ def create():
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
+    cursor = db.cursor(buffered = True)
     cursor.execute('SELECT * FROM todo WHERE id = %s LIMIT 1',(id,) )
     row = cursor.fetchone()
     db.commit()
+    cursor.close()
     #post = Post.query.get(id)
     return render_template("detail.html", post = row)
 #削除
 @app.route("/delete/<int:id>")
 def delete(id):
+    cursor = db.cursor(buffered = True)
     cursor.execute('DELETE FROM todo WHERE id= %s',(id,))
     db.commit()
     #post = Post.query.get(id)
     #db.session.delete(post)
     #db.session.commit()
+    cursor.close()
     return redirect("/")
 #完了
 
