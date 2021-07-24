@@ -1,5 +1,6 @@
 from flask import Flask,render_template,request,redirect,url_for
 from datetime import datetime
+import datetime
 import mysql.connector
 import pymysql.cursors
 from flask import Flask, request, abort
@@ -52,6 +53,14 @@ def selctcommand1(db,sql,id):
      db.close()
      return rows
 
+def selctcommand2(db,sql,id):
+     cursor = db.cursor(buffered = True)
+     cursor.execute(sql,id)#上限は10個
+     rows = cursor.fetchall()
+     cursor.close()
+     db.close()
+     return rows
+
 def sqlcommand(db,sql):
     db = mysql.connector.connect(**dns)
     cursor = db.cursor(buffered = True)
@@ -67,6 +76,9 @@ def sqlcommand1(db,sql,id):#値の指定がある場合はこちらのメソッ�
     cursor.close()
     db.close()
 
+#完成数の初期化
+#date = datetime.date.today()
+#sqlcommand1(dbstart(),'INSERT INTO todofinish (day,noa) VALUES (%s, %s);',(date,0))
 
 @app.context_processor
 def override_url_for():
@@ -116,15 +128,12 @@ def delete(id):
 #完了
 @app.route("/finish/<int:id>")
 def finish(id):
+    date = datetime.date.today()
     sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
-    num = selctcommand1(dbstar(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1',date.today())
-    if num == null:
-        sqlcommand(dbstart(),'INSERT INTO todofinish (day,noa) VALUES (%s, %s);',(date.today(),1))
-        return redirect("/")
-    else:
-        sum = num[1]+1
-        sqlcommand(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date.today()))
-        return redirect("/")
+    num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+    sum = num[1]+1
+    sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
+    return redirect("/")
 #編集""
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
