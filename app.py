@@ -10,6 +10,7 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage,)
 import schedule
 import time
 import os
+import glaph
 
 app = Flask(__name__)
 
@@ -133,6 +134,7 @@ def finish(id):
     num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
     sum = num[1]+1
     sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
+    glaph()
     return redirect("/")
 #編集""
 @app.route("/update/<int:id>",methods = ["GET","POST"])
