@@ -44,9 +44,9 @@ y = np.array([today_finish,a_finish,b_finish,c_finish,d_finish,e_finish,f_finish
 x = np.array([today,a,b,c,d,e,f])
 plt.figure(figsize=(10, 4))
 plt.plot(x,y)
-plt.title('最近の達成数の流れ',fontname="MS Gothic")
-plt.ylabel('達成数',fontname="MS Gothic")
-plt.xlabel('日付',fontname="MS Gothic")
+plt.title('Recent achievements')
+plt.ylabel('Achievements')
+plt.xlabel('day')
 plt.ylim(0, 7)
 plt.grid()
 

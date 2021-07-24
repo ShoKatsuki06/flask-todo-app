@@ -131,6 +131,7 @@ def delete(id):
 def finish(id):
     date = datetime.date.today()
     sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
+    print(date)
     num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
     sum = num[1]+1
     sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
