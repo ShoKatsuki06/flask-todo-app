@@ -4,7 +4,7 @@ import mysql.connector
 import matplotlib.pyplot as plt
 import math
 import numpy as np
-import seaborn as sns
+
 
 def search(id):
      dns = {
