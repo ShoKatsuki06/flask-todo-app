@@ -14,11 +14,14 @@
   <article>
     <div class="side">
       <p><a href="index.html"><img src="{{ url_for('static',filename='img/logo-2-kiri.png') }}"></a></p>
-      <!-- {% for post in posts %} -->
-      <!-- <p><a href="/detail/{{post[0]}}" role="button">Detail</a></p> -->
-      <!-- <p><a href="/update/{{post[0]}}" role="button">Update</a></p> -->
-      <!-- <p><a href="/delete/{{post[0]}}" role="button">Delete</a></p> -->
-      <!-- {% endfor %} -->
+      <div class="sns_icon">
+        <p><a href=""><img src="{{ url_for('static',filename='img/LINE_Brand_icon.png') }}"></a></p>
+        <p><a href=""><img src="{{ url_for('static',filename='img/2021 Twitter logo - white.png') }}"></a></p>
+        <p><a href=""><img src="{{ url_for('static',filename='img/GitHub-Mark-Light-120px-plus.png') }}"></a></p>
+      </div>
+      <div class="clock">
+        <p id="time"></p>
+      </div>
     </div>
     <div class="content">
       {% block body %}{% endblock %}

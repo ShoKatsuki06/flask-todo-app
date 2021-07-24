@@ -14,6 +14,21 @@ body {
 .side img {
 	width: 100%;
 }
+.sns_icon{
+  margin-top: 50vh;
+  display: flex;
+  justify-content: center;
+}
+.sns_icon img{
+    width: 50px;
+    height: auto;
+    margin-right: 1vh;
+}
+.clock{
+  margin-top: 5vh;
+  color: #fff;
+}
+
 /*メインコンテンツ*/
 .content {
   /* background: red; */
@@ -28,7 +43,7 @@ article {
 /*TOP要素*/
 .top{
   /* background: #fff; */
-  margin-top: 10vh;
+  margin-top: 5vh;
   font-size: 5vh;
 }
 .top table{
@@ -36,10 +51,17 @@ article {
   margin-top: 10vh;
 }
 
+.top img {
+  width: auto;
+  margin-top: 5vh;
+  height: 35vh;
+}
+
 /*複数のテーブルを見やすいように*/
 .multiple_table{
   /* background: #f0f; */
   margin: auto;
+  margin-top: 5vh;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

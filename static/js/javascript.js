@@ -1,4 +1,13 @@
 window.addEventListener('DOMContentLoaded', function(){
+  //リアルタイムの日時
+  function showtime() {
+    var today = new Date();
+    $weekday = ['日', '月', '火', '水', '木', '金', '土'];
+    month = today.getMonth() + 1;
+    $('#time').html(month + "月" + today.getDate() + "日(" + $weekday[today.getDay()] + ")\n" + today.getHours() + ":" + ('0' + today.getMinutes()).slice(-2) + ":" + ('0' + today.getSeconds()).slice(-2));
+  }
+  setInterval(showtime, 1000);
+
   // パスワードとボタンのHTMLを取得
   let btn_passview = document.getElementById("display");
   let input_pass = document.getElementById("pass");
