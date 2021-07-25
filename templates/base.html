@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet"  href="{{ url_for('static',filename='css/reset.css') }}">
-    <link rel="stylesheet"  href="{{ url_for('static',filename='css/style.css') }}">
-    <script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static',filename='js/javascript.js') }}"></script>
-    {% block head %}{% endblock %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Document</title>
+<link rel="stylesheet"  href="{{ url_for('static',filename='css/reset.css') }}">
+<link rel="stylesheet"  href="{{ url_for('static',filename='css/style.css') }}">
+<script type="text/javascript" src="{{ url_for('static',filename='js/jquery-3.6.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/style.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static',filename='js/javascript.js') }}"></script>
+{% block head %}{% endblock %}
 </head>
 <body>
+<canvas id="canvas"></canvas>
+<section id="body">
   <article>
     <div class="side">
       <p><a href="index.html"><img src="{{ url_for('static',filename='img/logo-2-kiri.png') }}"></a></p>
@@ -27,5 +30,6 @@
       {% block body %}{% endblock %}
     </div>
   </article>
+</section>
 </body>
 </html>

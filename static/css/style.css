@@ -1,15 +1,30 @@
 /*全体*/
 body {
-   font-family:'Noto Sans JP',sans-serif;
-   background-color:#f6f5f4;
+  font-family:'Noto Sans JP',sans-serif;
+  background-color:#f6f5f4;
+}
+
+#canvas {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+}
+
+#body {
+  position:relative;
+  top:0;
+  left:0;
 }
 
 /*スライダーメニュー*/
 .side {
-  background-color:#184da3;
   width:15%;
   height:100vh;
+  position: fixed;
   text-align:center;
+  background-color:#184da3;
 }
 .side img {
 	width: 100%;
@@ -33,7 +48,7 @@ body {
 .content {
   /* background: red; */
   width: 100%;
-  margin-left:100px;/*サイドバーとメインコンテンツの間に隙間*/
+  margin-left:150px;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
 }
 /*サイドバーとメインコンテンツを横並びにする*/
