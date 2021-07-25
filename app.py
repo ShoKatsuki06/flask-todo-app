@@ -1,4 +1,4 @@
-from flask import Flask,render_template,request,redirect,url_for
+from flask import Flask,render_template,request,redirect,url_for,session
 from datetime import datetime
 import datetime
 import mysql.connector
@@ -13,6 +13,7 @@ import os
 
 
 app = Flask(__name__)
+app.secret_key = 'hogehoge'
 
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
@@ -93,64 +94,131 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
+
+@app.route('/login',methods = ['POST'])
+def login():
+         db = dbstart()
+         sql = 'SELECT * FROM dbuser ;'
+         users = selctcommand(db,sql)
+         print(users)
+         for user in users:
+             print(user)
+             name = user[1]
+             pas = user[2]
+             if(request.form.get('name')==name and request.form.get('pass') == pas):
+                 session['logged_in'] = True
+                 session['name'] = name
+                 session['pass'] = pas
+             elif(request.form.get('name')==name and request.form.get('pass') != pas):
+                 flash('wrong password!')
+             else:
+                 continue
+         return redirect('/')
+
+
+@app.route('/input',methods = ['POST'])
+def input():
+    title = request.form.get('name')
+    pas = request.form.get('pass')
+    sql = "INSERT INTO dbuser (username,password) VALUES (%s, %s)";
+    sqlcommand1(dbstart(),sql,(name,pas))
+    return(login.html)
+
+
+
 #メインメニュー
 @app.route("/",methods = ["GET","POST"])
 def index():
-    if request.method == "GET":
-       db = dbstart()
-       sql = 'SELECT * FROM todo LIMIT 10;'
-       rows = selctcommand(db,sql)
-       return render_template("index.html", posts = rows )
-    else:#登録
-       title = request.form.get('title')
-       detail = request.form.get('detail')
-       due = request.form.get('due')
-       print(due)
-       sql = "INSERT INTO todo (title,detail,due ) VALUES (%s, %s, %s);"
-       sqlcommand1(dbstart(),sql,(title,detail,due))
-       sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
-       return redirect('/')
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        if request.method == "GET":
+           db = dbstart()
+           name = session.get('name')
+           sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
+           rows = selctcommand2(db,sql,(name,))
+           return render_template("index.html", posts = rows)
+        elif request.method =='POST':#登録
+           name = session.get('name')#これかいたらできるよ
+           title = request.form.get('title')
+           detail = request.form.get('detail')
+           due = request.form.get('due')
+           print(due)
+           sql = "INSERT INTO todo (title,detail,due,username ) VALUES (%s, %s, %s,%s);"
+           sqlcommand1(dbstart(),sql,(title,detail,due,name))
+           sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
+           return redirect('/')
+
+
 
 #作成画面
 @app.route("/create")
 def create():
+    if not session.get('logged_in'):
+      return render_template('login.html')
+    else:
+      name = session.get('name')
       return render_template("create.html")
 #詳細画面
 @app.route("/detail/<int:id>")
 def read(id):
-    db = dbstart()
-    row = selctcommand1(db,'SELECT * FROM todo WHERE id = %s LIMIT 1',(id,))
-    return render_template("detail.html", post = row)
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        db = dbstart()
+        name = session.get('name')
+        row = selctcommand1(db,'SELECT * FROM todo WHERE id = %s LIMIT 1',(id,))
+        return render_template("detail.html", post = row)
+
 #削除
 @app.route("/delete/<int:id>")
 def delete(id):
-    sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
-    return redirect("/")
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        name = session.get('name')
+        sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
+        return redirect("/")
+
 #完了
 @app.route("/finish/<int:id>")
 def finish(id):
-    date = datetime.date.today()
-    sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
-    print(date)
-    num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
-    sum = num[1]+1
-    sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
-    #glaph()
-    import glaph
-    return redirect("/")
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        name = session.get('name')
+        date = datetime.date.today()
+        sqlcommand1(dbstart(),'DELETE FROM todo WHERE id= %s',(id,))
+        print(date)
+        num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+        sum = num[1]+1
+        sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
+        #glaph()
+        import glaph
+        return redirect("/")
+
 #編集""
 @app.route("/update/<int:id>",methods = ["GET","POST"])
 def update(id):
-    row = selctcommand1(dbstart(),'SELECT * FROM todo WHERE id = %s',(id,))
-    print(row)
-    if request.method =="GET":
-        return render_template("update.html",post=row)
+    if not session.get('logged_in'):
+        return render_template('login.html')
     else:
-        title = request.form.get("title")
-        detail = request.form.get("detail")
-        due = request.form.get("due")
-        sqlcommand1(dbstart(),'UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
-        return redirect("/")
+        name = session.get('name')
+        row = selctcommand1(dbstart(),'SELECT * FROM todo WHERE id = %s',(id,))
+        print(row)
+        if request.method =="GET":
+            return render_template("update.html",post=row)
+        else:
+            title = request.form.get("title")
+            detail = request.form.get("detail")
+            due = request.form.get("due")
+            sqlcommand1(dbstart(),'UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
+            return redirect("/")
+
+
+#LINEの返信
+
+
 
 if __name__=="__main__":
     app.run(debug=True)
