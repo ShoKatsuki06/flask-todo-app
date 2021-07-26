@@ -1,46 +1,56 @@
 /*全体*/
 body {
-  font-family:'Noto Sans JP',sans-serif;
-  background-color:#f6f5f4;
+  font-family: 'Noto Sans JP',sans-serif;
+  background-color: #f6f5f4;
 }
 
 #canvas {
   position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
+  width: 100%;
+  height: 100%;
 }
 
 #body {
-  position:relative;
-  top:0;
-  left:0;
+  position: relative;
+  margin-bottom: 5vh;
 }
 
 /*スライダーメニュー*/
 .side {
-  width:15%;
-  height:100vh;
+  width: 10%;
+  height: 100vh;
   position: fixed;
-  text-align:center;
-  background-color:#184da3;
+  text-align: center;
+  background: #184da3;
+}
+.side p {
+  margin-bottom: 2vh;
+}
+.link a {
+  padding: 5px 20px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 2.5vh;
+  transition: .2s;
+}
+.link a:hover {
+  background-color: rgba(0,0,0,0.3);
+  text-decoration: none;
 }
 .side img {
 	width: 100%;
 }
-.sns_icon{
-  margin-top: 50vh;
+.sns_icon {
+  margin-top: 35vh;
   display: flex;
   justify-content: center;
 }
-.sns_icon img{
-    width: 50px;
+.sns_icon img {
+    width: 5vh;
     height: auto;
     margin-right: 1vh;
 }
-.clock{
-  margin-top: 5vh;
+.clock {
   color: #fff;
 }
 
@@ -48,7 +58,8 @@ body {
 .content {
   /* background: red; */
   width: 100%;
-  margin-left:150px;/*サイドバーとメインコンテンツの間に隙間*/
+  margin-top: 5vh;
+  margin-left: 25vh;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
 }
 /*サイドバーとメインコンテンツを横並びにする*/
@@ -56,12 +67,11 @@ article {
   display:flex;
 }
 /*TOP要素*/
-.top{
+.top h1 {
   /* background: #fff; */
-  margin-top: 5vh;
   font-size: 5vh;
 }
-.top table{
+.top table {
   margin: auto;
   margin-top: 10vh;
 }
@@ -73,7 +83,7 @@ article {
 }
 
 /*複数のテーブルを見やすいように*/
-.multiple_table{
+.multiple_table {
   /* background: #f0f; */
   margin: auto;
   margin-top: 5vh;
@@ -84,19 +94,11 @@ article {
   align-content: flex-start;
 }
 /*汎用型*/
-.table{
-  /* width:50vh; */
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 30px;
+.table {
+  padding: 5px;
   border-collapse: separate;
   border-spacing: 0px 0.5rem;
-}
-th.table,td.table {
-  border: solid 2px #000000;
-}
-td.noborder{
-  border: none;
+  background-color: rgba(0,0,0,0.3);
 }
 .button {
   color: #ffffff;
@@ -151,6 +153,7 @@ td.noborder{
 /*td*/
 .contact_form td {
 	padding: 14px 20px;
+  background: #f0f0f0;
 	box-sizing: border-box;
 }
 .contact_form input[type="text"],

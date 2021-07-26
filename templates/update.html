@@ -16,11 +16,12 @@
       </tr>
       <tr>
         <th><label for="due">日時</label></th>
-        <td><input type="date" name="due" value={{ post[3] }}></td>
+        <td><input type="datetime-local" name="due" value={{ post[3] }}></td>
       </tr>
     </table>
     <button type="submit" name="Change" value="Change" class="confirm_btn">更新</button>
   </form>
 </div>
 </div>
+
 {% endblock %}
