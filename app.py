@@ -17,10 +17,10 @@ app.secret_key = 'hogehoge'
 
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
-YOUR_CHANNEL_SECRET = os.environ["9ed08732e0a51e53454e2b4a2ef91207"]
+#YOUR_CHANNEL_SECRET = os.environ["9ed08732e0a51e53454e2b4a2ef91207"]
 # LINE APIを定義。引数にアクセストークンを与える。
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
-handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+#handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 def sendText(text_message):
    try:
