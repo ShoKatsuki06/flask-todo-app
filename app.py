@@ -17,8 +17,10 @@ app.secret_key = 'hogehoge'
 
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
+#YOUR_CHANNEL_SECRET = os.environ["9ed08732e0a51e53454e2b4a2ef91207"]
 # LINE APIを定義。引数にアクセストークンを与える。
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
+#handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 def sendText(text_message):
    try:
@@ -78,9 +80,6 @@ def sqlcommand1(db,sql,id):#値の指定がある場合はこちらのメソッ�
     cursor.close()
     db.close()
 
-#完成数の初期化
-#date = datetime.date.today()
-#sqlcommand1(dbstart(),'INSERT INTO todofinish (day,noa) VALUES (%s, %s);',(date,0))
 
 @app.context_processor
 def override_url_for():
@@ -95,6 +94,7 @@ def dated_url_for(endpoint, **values):
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
 
+
 @app.route('/login',methods = ['POST'])
 def login():
          db = dbstart()
@@ -108,21 +108,29 @@ def login():
              if(request.form.get('name')==name and request.form.get('pass') == pas):
                  session['logged_in'] = True
                  session['name'] = name
-                 session['pass'] = pas
              elif(request.form.get('name')==name and request.form.get('pass') != pas):
                  flash('wrong password!')
              else:
                  continue
          return redirect('/')
 
+@app.route('/logout')
+def logout():
+    session.pop('logged_in', False)
+    session.pop("name", None)
+    return redirect("/")
+
+@app.route('/inpuut')
+def inpuut():
+    return render_template("input.html")
 
 @app.route('/input',methods = ['POST'])
 def input():
-    title = request.form.get('name')
+    name = request.form.get('name')
     pas = request.form.get('pass')
-    sql = "INSERT INTO dbuser (username,password) VALUES (%s, %s)";
+    sql = "INSERT INTO dbuser (name,pass) VALUES (%s, %s)";
     sqlcommand1(dbstart(),sql,(name,pas))
-    return(login.html)
+    return redirect("/")
 
 
 
@@ -132,11 +140,11 @@ def index():
     if not session.get('logged_in'):
         return render_template('login.html')
     else:
-        if request.method == "GET":
+        if request.method == "GET" and session.get('name') == 'sho' :
            db = dbstart()
            name = session.get('name')
-           sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
-           rows = selctcommand2(db,sql,(name,))
+           sql = 'SELECT * FROM todo LIMIT 10;'
+           rows = selctcommand(db,sql)
            return render_template("index.html", posts = rows)
         elif request.method =='POST':#登録
            name = session.get('name')#これかいたらできるよ
@@ -146,8 +154,14 @@ def index():
            print(due)
            sql = "INSERT INTO todo (title,detail,due,username ) VALUES (%s, %s, %s,%s);"
            sqlcommand1(dbstart(),sql,(title,detail,due,name))
-           sendText("TODOを登録しました\r\n{},{},{}".format(title,detail,due))
+           sendText("TODOを登録しました\r\n{},{},{},{}".format(title,detail,due,name))
            return redirect('/')
+        else:
+           db = dbstart()
+           name = session.get('name')
+           sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
+           rows = selctcommand2(db,sql,(name,))
+           return render_template("index.html", posts = rows)
 
 
 

@@ -49,6 +49,12 @@ for r in row :
     rmessage = ("{}\r\n----------------\r\n".format(rm))
     text_message = text_message + rmessage
 #ラインで送るやつのメソッド定義
+
+def main():
+    to = "ryuzin1020"
+    messages = TextSendMessage(text="マルチキャストテスト")
+    line_bot_api.multicast(to, messages=messages)
+
 def text(text_message):
   try:
     # ラインユーザIDは配列で指定する。
@@ -60,3 +66,4 @@ def text(text_message):
 #送信
 text_message = text_message + "です"
 text(text_message)
+main()
