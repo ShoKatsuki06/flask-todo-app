@@ -17,10 +17,10 @@ app.secret_key = 'hogehoge'
 
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
-#YOUR_CHANNEL_SECRET = os.environ["9ed08732e0a51e53454e2b4a2ef91207"]
+YOUR_CHANNEL_SECRET = "9ed08732e0a51e53454e2b4a2ef91207"
 # LINE APIを定義。引数にアクセストークンを与える。
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
-#handler = WebhookHandler(YOUR_CHANNEL_SECRET)
+handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
 def sendText(text_message):
    try:
@@ -93,6 +93,43 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
+
+
+@app.route("/callback", methods=['POST'])
+def callback():
+    signature = request.headers['X-Line-Signature']
+
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    try:
+        handler.handle(body, signature)
+    except InvalidSignatureError:
+        abort(400)
+
+    return 'OK'
+
+
+@handler.add(MessageEvent, message=TextMessage)
+def response_message(event):
+    profile = line_bot_api.get_profile(event.source.user_id)
+
+    status_msg = profile.status_message
+    if status_msg != "None":
+        # LINEに登録されているstatus_messageが空の場合は、"なし"という文字列を代わりの値とする
+        status_msg = "なし"
+
+    messages = TemplateSendMessage(alt_text="Buttons template",
+                                   template=ButtonsTemplate(
+                                       thumbnail_image_url=profile.picture_url,
+                                       title=profile.display_name,
+                                       text=f"User Id: {profile.user_id[:5]}...\n"
+                                            f"Status Message: {status_msg}",
+                                       actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
+
+    line_bot_api.reply_message(event.reply_token, messages=messages)
+
+
 
 
 @app.route('/login',methods = ['POST'])

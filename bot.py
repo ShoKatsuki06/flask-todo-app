@@ -10,6 +10,9 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage,)
 import schedule
 import time
 import os
+from linebot import LineBotApi
+from linebot.models import TextSendMessage
+from linebot.exceptions import LineBotApiError
 
 LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL3iBhbnzcETKXe6wzaOWxdx8tY5HAw738Mm3uPz63eCR9uwVD+JkzSl6aQhghtwj10sa0yfVEhwnUHHuXkf07zUMesQdB04t89/1O/w1cDnyilFU=" # ラインアクセストークン
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
@@ -50,10 +53,12 @@ for r in row :
     text_message = text_message + rmessage
 #ラインで送るやつのメソッド定義
 
-def main():
-    to = "ryuzin1020"
-    messages = TextSendMessage(text="マルチキャストテスト")
-    line_bot_api.multicast(to, messages=messages)
+def a():
+    try:
+      to = "Ueaa310a45e9e48e0109b2025c07e91e4"
+      line_bot_api.push_message(to, TextSendMessage(text="マルチキャストテスト"))
+    except LineBotApiError as e:
+      print(e)
 
 def text(text_message):
   try:
@@ -65,5 +70,5 @@ def text(text_message):
     print(e)
 #送信
 text_message = text_message + "です"
-text(text_message)
-main()
+#text(text_message)
+a()
