@@ -126,6 +126,8 @@ def response_message(event):
                                        text=f"User Id: {profile.user_id[:5]}...\n"
                                             f"Status Message: {status_msg}",
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
+    id = json_dict['userId']
+    print(id)
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
 
