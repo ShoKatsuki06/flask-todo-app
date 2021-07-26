@@ -127,7 +127,7 @@ def response_message(event):
                                             f"Status Message: {status_msg}",
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
 
-    line_bot_api.reply_message(event.reply_token, messages=profile.user_id)
+    line_bot_api.reply_message(event.reply_token, messages=str(profile.user_id))
 
 
 
