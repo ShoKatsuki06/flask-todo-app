@@ -6,7 +6,7 @@ import pymysql.cursors
 from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
-from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,CarouselTemplate, CarouselColumn,ButtonsTemplate)
+from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,CarouselTemplate, CarouselColumn,ButtonsTemplate,MessageAction)
 import schedule
 import time
 import os
