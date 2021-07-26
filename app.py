@@ -19,6 +19,7 @@ LINE_ACCESS_TOKEN= "Xm/qqqPXcmUHPfCBqrnT2xmHF3NkL65iqonu85Mxm5B8f1YqwIppIhRBMWRL
 LINE_USER_ID= "Ueaa310a45e9e48e0109b2025c07e91e4" # ライン
 # LINE APIを定義。引数にアクセストークンを与える。
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
+handler = WebhookHandler('9ed08732e0a51e53454e2b4a2ef91207')
 
 def sendText(text_message):
    try:
@@ -91,6 +92,42 @@ def dated_url_for(endpoint, **values):
                                  endpoint, filename)
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
+
+@app.route("/callback", methods=['POST'])
+def callback():
+    # リクエストヘッダーから署名検証のための値を取得します。
+    signature = request.headers['X-Line-Signature']
+
+    # リクエストボディを取得します。
+    body = request.get_data(as_text=True)
+    app.logger.info("Request body: " + body)
+
+    # handle webhook body
+　# 署名を検証し、問題なければhandleに定義されている関数を呼び出す。
+    try:
+        handler.handle(body, signature)
+　# 署名検証で失敗した場合、例外を出す。
+    except InvalidSignatureError:
+        abort(400)
+　# handleの処理を終えればOK
+    return 'OK'
+
+## 2 ##
+###############################################
+#LINEのメッセージの取得と返信内容の設定(オウム返し)
+###############################################
+
+#LINEでMessageEvent（普通のメッセージを送信された場合）が起こった場合に、
+#def以下の関数を実行します。
+#reply_messageの第一引数のevent.reply_tokenは、イベントの応答に用いるトークンです。
+#第二引数には、linebot.modelsに定義されている返信用のTextSendMessageオブジェクトを渡しています。
+
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(
+        event.reply_token,
+        TextSendMessage(text=event.message.text)) #ここでオウム返しのメッセージを返します。
+ 
 
 @app.route('/login',methods = ['POST'])
 def login():
