@@ -55,7 +55,7 @@ for r in row :
 
 def a():
     try:
-      to = "Ueaa310a45e9e48e0109b2025c07e91e4"
+      to = "U883f757af043b8f61cc96221b20c91d5"
       line_bot_api.push_message(to, TextSendMessage(text="マルチキャストテスト"))
     except LineBotApiError as e:
       print(e)
