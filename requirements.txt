@@ -80,3 +80,4 @@ Werkzeug==2.0.1
 widgetsnbextension==3.5.1
 matplotlib==3.4.2
 numpy==1.21.1
+beautifulsoup==4-4.9.3
