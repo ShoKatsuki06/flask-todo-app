@@ -164,6 +164,7 @@ def login():
                  session['userid'] = userid
              elif(request.form.get('name')==name and request.form.get('pass') != pas):
                  flash('wrong password!')
+                 return render_template('login.html')
              else:
                  continue
          return redirect('/')
