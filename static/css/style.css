@@ -91,11 +91,14 @@ footer {
   /* background: #fff; */
   font-size: 5vh;
 }
+.top h1 {
+  font-size: 3vh;
+  margin-top: 1vh;
+}
 .top table {
   margin: auto;
   margin-top: 10vh;
 }
-
 .top img {
   width: auto;
   margin-top: 5vh;
