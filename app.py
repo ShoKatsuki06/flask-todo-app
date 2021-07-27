@@ -127,6 +127,9 @@ def response_message(event):
                                             f"Status Message: {status_msg}",
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
     id = profile.user_id
+    name =event.message.text
+    sql = 'UPDATE `heroku_fab7e2e9408003b`.`dbuser` SET userid = %s WHERE (name = %s);'
+    sqlcommand1(dbstart(),sql,(id,name ))
     print(id)
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
