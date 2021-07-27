@@ -298,6 +298,15 @@ def update(id):
             sqlcommand1(dbstart(),'UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
             return redirect("/")
 
+@app.route('/mypage')
+def mypage():
+    if not session.get('logged_in'):
+        return render_template('login.html')
+    else:
+        name = session.get('name')
+        return render_template("mypage.html",name=name)
+
+
 
 
 if __name__=="__main__":
