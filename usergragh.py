@@ -19,7 +19,12 @@ def search(id,name):
      row = cursor.fetchone()
      cursor.close()
      db.close()
-     return row
+
+     if row == None:
+         return 0
+     else:
+         return row[1]
+
 
 
 def userfinish(name):
@@ -32,13 +37,13 @@ def userfinish(name):
     e = today - timedelta(days=5)
     f = today - timedelta(days=6)
 
-    today_finish = search(today,name)[1]
-    a_finish = search(a,name)[1]
-    b_finish = search(b,name)[1]
-    c_finish = search(c,name)[1]
-    d_finish = search(d,name)[1]
-    e_finish = search(e,name)[1]
-    f_finish = search(f,name)[1]
+    today_finish = search(today,name)
+    a_finish = search(a,name)
+    b_finish = search(b,name)
+    c_finish = search(c,name)
+    d_finish = search(d,name)
+    e_finish = search(e,name)
+    f_finish = search(f,name)
 
     #plt.style.use('fivethirtyeight')
 

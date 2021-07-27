@@ -264,13 +264,21 @@ def finish(id):
         num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
         sum = num[1]+1
         usernum = selctcommand1(dbstart(),'SELECT * FROM userfinish WHERE day = %s AND username = %s LIMIT 1;',(date,name))
-        print(usernum[1])
-        usum = usernum[1]+1
-        sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
-        sqlcommand1(dbstart(),'UPDATE userfinish SET noa = %s WHERE day = %s AND username = %s;',(usum,date,name))
-        import glaph
-        usergragh.userfinish(name)
-        return redirect("/")
+        if usernum == None:
+            usum = 1
+            sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
+            sqlcommand1(dbstart(),'INSERT INTO userfinish (day,noa,username) VALUES (%s, %s, %s);',(date,usum,name))
+            import glaph
+            usergragh.userfinish(name)
+            return redirect("/")
+        else:
+            usum = usernum[1]+1
+            sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
+            sqlcommand1(dbstart(),'UPDATE userfinish SET noa = %s WHERE day = %s AND username = %s;',(usum,date,name))
+            import glaph
+            usergragh.userfinish(name)
+            return redirect("/")
+
 
 #編集""
 @app.route("/update/<int:id>",methods = ["GET","POST"])
