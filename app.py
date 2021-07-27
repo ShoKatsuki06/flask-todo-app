@@ -22,11 +22,11 @@ YOUR_CHANNEL_SECRET = "9ed08732e0a51e53454e2b4a2ef91207"
 line_bot_api = LineBotApi(LINE_ACCESS_TOKEN)
 handler = WebhookHandler(YOUR_CHANNEL_SECRET)
 
-def sendText(text_message):
+def sendText(id,text_message):
    try:
     # ラインユーザIDは配列で指定する。
     line_bot_api.multicast(
-    [LINE_USER_ID], TextSendMessage(text=text_message))
+    [id], TextSendMessage(text=text_message))
    except LineBotApiError as e:
     # エラーが起こり送信できなかった場合
     print(e)
@@ -157,9 +157,11 @@ def login():
              print(user)
              name = user[1]
              pas = user[2]
+             userid = user[3]
              if(request.form.get('name')==name and request.form.get('pass') == pas):
                  session['logged_in'] = True
                  session['name'] = name
+                 session['userid'] = userid
              elif(request.form.get('name')==name and request.form.get('pass') != pas):
                  flash('wrong password!')
              else:
@@ -200,13 +202,14 @@ def index():
            return render_template("index.html", posts = rows)
         elif request.method =='POST':#登録
            name = session.get('name')#これかいたらできるよ
+           userid = session.get('userid')
            title = request.form.get('title')
            detail = request.form.get('detail')
            due = request.form.get('due')
            print(due)
-           sql = "INSERT INTO todo (title,detail,due,username ) VALUES (%s, %s, %s,%s);"
-           sqlcommand1(dbstart(),sql,(title,detail,due,name))
-           sendText("TODOを登録しました\r\n{},{},{},{}".format(title,detail,due,name))
+           sql = "INSERT INTO todo (title,detail,due,username,userid ) VALUES (%s, %s, %s,%s,%s);"
+           sqlcommand1(dbstart(),sql,(title,detail,due,name,userid))
+           sendText(userid,"TODOを登録しました\r\n{},{},{},{}".format(title,detail,due,name))
            return redirect('/')
         else:
            db = dbstart()
