@@ -141,7 +141,7 @@ def response_message(event):
 
         line_bot_api.reply_message(event.reply_token, messages=messages)
     else:
-        line_bot_api.reply_message(event.reply_token, messages='その名前は違うよ！！')
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="その名前はないよ～～"))
 
 
 
