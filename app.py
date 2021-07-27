@@ -133,7 +133,7 @@ def response_message(event):
     uname = []
     for row in rows:
         username = row[1]
-        uname = username.appned()
+        uname.appned(username)
     if name in uname:
         sql = 'UPDATE `heroku_fab7e2e9408003b`.`dbuser` SET userid = %s WHERE (name = %s);'
         sqlcommand1(dbstart(),sql,(id,name ))
