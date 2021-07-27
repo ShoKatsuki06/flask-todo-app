@@ -5,7 +5,7 @@ import mysql.connector
 import pymysql.cursors
 from flask import Flask, request, abort
 from linebot import (LineBotApi, WebhookHandler)
-from linebot.exceptions import (InvalidSignatureError)
+from linebot.exceptions import (InvalidSignatureError,LineBotApiError)
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,CarouselTemplate, CarouselColumn,ButtonsTemplate,MessageAction)
 import schedule
 import usergragh
@@ -30,7 +30,7 @@ def sendText(id,text_message):
     [id], TextSendMessage(text=text_message))
    except LineBotApiError as e:
     # エラーが起こり送信できなかった場合
-    print(e)
+    redirect('/')
 
 def dbstart():# データベースの接続設定]
      dns = {
@@ -164,7 +164,6 @@ def login():
                  session['name'] = name
                  session['userid'] = userid
              elif(request.form.get('name')==name and request.form.get('pass') != pas):
-                 flash('wrong password!')
                  return render_template('login.html')
              else:
                  continue
