@@ -1,12 +1,48 @@
-{% extends "base.html" %}
-
-{% block body %}
+<!-- {% extends "base.html" %} -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet"  href="../static/css/style.css">
+    <link rel="stylesheet"  href="../static/css/reset.css">
+    <script type="text/javascript" src="../static/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../static/js/style.js"></script>
+    <script type="text/javascript" src="../static/js/javascript.js"></script>
+</head>
+<body>
+<canvas id="canvas"></canvas>
+<section id="body">
+  <header>
+    <p>{{ name }}さん</p>
+  </header>
+  <main>
+    <div class="side">
+      <p><a href="/index"><img src="../static/img/logo-2-kiri.png"></a></p>
+      <div class="link">
+        <p><a href="/index">TOP</a></p>
+        <p><a href="/mypage">マイページ</a></p>
+        <p><a href="/create">タスク作成</a></p>
+        <p><a href="/logout">ログアウト</a></p>
+      </div>
+      <div class="sns_icon">
+        <p><a href=""><img src="../static/img/LINE_Brand_icon.png"></a></p>
+        <p><a href=""><img src="../static/img/2021 Twitter logo - white.png"></a></p>
+        <p><a href=""><img src="../static/img/GitHub-Mark-Light-120px-plus.png"></a></p>
+      </div>
+      <div class="clock">
+        <p id="time"></p>
+      </div>
+    </div>
+    <div class="content">
+<!-- {% block body %} -->
 <div class="top">
   <h1>トップページ</h1>
   <p><button type="button" onclick="location.href='/create'" class="confirm_btn">新規タスクを作成</button></p>
   <p><a href="index.html"><img src="{{ url_for('static',filename='img/f_gragh.png') }}"></a></p>
 <div class="multiple_table">
-{% for post in posts %}
+<!-- {% for post in posts %} -->
 <table class="table">
   <tr>
     <th><p>タイトル : {{ post[1] }}</p></th>
@@ -26,8 +62,280 @@
     </td>
   </tr>
 </table>
-{% endfor %}
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<table class="table">
+  <tr>
+    <th><p>タイトル : {{ post[1] }}</p></th>
+  </tr>
+  <tr>
+    <td><p>期限 ： {{ post[3] }}</p></td>
+  </tr>
+  <tr>
+    <td><p>ユーザー名 ： {{ post[4] }}</p></td>
+  </tr>
+  <tr>
+    <td>
+      <button type="button" onclick="location.href='/detail/{{post[0]}}'" class="button">詳細</button>
+      <button type="button" onclick="location.href='/finish/{{post[0]}}'" class="button">完了</button>
+      <button type="button" onclick="location.href='/delete/{{post[0]}}'" class="button">削除</button>
+      <button type="button" onclick="location.href='/update/{{post[0]}}'" class="button">変更</button>
+    </td>
+  </tr>
+</table>
+<!-- {% endfor %} -->
 </div>
 </div>
-
-{% endblock %}
+</main>
+<footer>
+  <p>本システムLINEBOTを使用しています、事前に登録してから開始してください。</p>
+</footer>
+</section>
+<!-- {% endblock %} -->
+</body>
+</html>

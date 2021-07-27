@@ -1,18 +1,39 @@
 /*全体*/
 body {
+  min-height: 100vh;
+  position: relative;/*←相対位置*/
+  box-sizing: border-box;/*←全て含めてmin-height:100vhに*/
   font-family: 'Noto Sans JP',sans-serif;
   background-color: #f6f5f4;
 }
-
+main {
+  display: flex;
+}
+header {
+ width: 100%;
+ background: #184da3;
+ color: #fff;
+ text-align: right;
+ padding: 5px 0;
+ position: fixed;
+ top: 0; /*上に固定*/
+}
+footer {
+ width: 100%;
+ background: #184da3;
+ color: #fff;
+ text-align: center;
+ padding: 5px 0;
+ position: fixed;
+ bottom: 0; /*下に固定*/
+}
 #canvas {
   position:fixed;
   width: 100%;
   height: 100%;
 }
-
 #body {
   position: relative;
-  margin-bottom: 5vh;
 }
 
 /*スライダーメニュー*/
@@ -55,17 +76,16 @@ body {
 }
 
 /*メインコンテンツ*/
+/*サイドバーとメインコンテンツを横並びにする*/
 .content {
   /* background: red; */
   width: 100%;
   margin-top: 5vh;
+  margin-bottom: 7vh;
   margin-left: 25vh;/*サイドバーとメインコンテンツの間に隙間*/
   text-align: center;
 }
-/*サイドバーとメインコンテンツを横並びにする*/
-article {
-  display:flex;
-}
+
 /*TOP要素*/
 .top h1 {
   /* background: #fff; */

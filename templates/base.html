@@ -14,7 +14,10 @@
 <body>
 <canvas id="canvas"></canvas>
 <section id="body">
-  <article>
+  <header>
+    <p>{{ name }}さん</p>
+  </header>
+  <main>
     <div class="side">
       <p><a href="/"><img src="{{ url_for('static',filename='img/logo-2-kiri.png') }}"></a></p>
       <div class="link">
@@ -35,7 +38,9 @@
     <div class="content">
       {% block body %}{% endblock %}
     </div>
-  </article>
+  </main>
+<footer>
+  <p>本システムLINEBOTを使用しています、事前に登録してから開始してください。</p>
+</footer>
 </section>
-</body>
 </html>
