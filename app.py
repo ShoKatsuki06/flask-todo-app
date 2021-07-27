@@ -128,11 +128,21 @@ def response_message(event):
                                        actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
     id = profile.user_id
     name =event.message.text
-    sql = 'UPDATE `heroku_fab7e2e9408003b`.`dbuser` SET userid = %s WHERE (name = %s);'
-    sqlcommand1(dbstart(),sql,(id,name ))
-    print(id)
+    slsql = 'SELECT * FROM dbuser'
+    rows = selctcommand(dbstart(),slsql)
+    uname = []
+    for row in rows:
+        username = row[1]
+        uname = username.appned()
+    if name in uname:
+        sql = 'UPDATE `heroku_fab7e2e9408003b`.`dbuser` SET userid = %s WHERE (name = %s);'
+        sqlcommand1(dbstart(),sql,(id,name ))
+        print(id)
 
-    line_bot_api.reply_message(event.reply_token, messages=messages)
+        line_bot_api.reply_message(event.reply_token, messages=messages)
+    else:
+        line_bot_api.reply_message(event.reply_token, messages='その名前は違うよ！！')
+
 
 
 
