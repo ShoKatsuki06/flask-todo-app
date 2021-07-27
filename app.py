@@ -10,6 +10,7 @@ from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateS
 import schedule
 import usergragh
 import time
+import news
 import os
 
 
@@ -95,7 +96,7 @@ def dated_url_for(endpoint, **values):
             values['q'] = int(os.stat(file_path).st_mtime)
     return url_for(endpoint, **values)
 
-
+#LINEの送信部分
 @app.route("/callback", methods=['POST'])
 def callback():
     signature = request.headers['X-Line-Signature']
@@ -147,7 +148,7 @@ def response_message(event):
 
 
 
-
+#ログイン
 @app.route('/login',methods = ['POST'])
 def login():
          db = dbstart()
@@ -179,6 +180,7 @@ def logout():
 def inpuut():
     return render_template("input.html")
 
+#登録
 @app.route('/input',methods = ['POST'])
 def input():
     name = request.form.get('name')
@@ -196,11 +198,18 @@ def index():
         return render_template('login.html')
     else:
         if request.method == "GET" and session.get('name') == 'sho' :
+           import news
            db = dbstart()
            name = session.get('name')
            sql = 'SELECT * FROM todo LIMIT 10;'
            rows = selctcommand(db,sql)
-           return render_template("index.html", posts = rows)
+           ne =  news.check()
+           n = '今日のニュースは'
+           for new in ne:
+               ne = (new+' ')
+               n = n+ne
+           print(n)
+           return render_template("index.html", posts = rows,n = n)
         elif request.method =='POST':#登録
            name = session.get('name')#これかいたらできるよ
            userid = session.get('userid')
@@ -217,7 +226,13 @@ def index():
            name = session.get('name')
            sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
            rows = selctcommand2(db,sql,(name,))
-           return render_template("index.html", posts = rows)
+           ne =  news.check()
+           n = '今日のニュースは'
+           for new in ne:
+               ne = (new+' ')
+               n = n+ne
+           print(n)
+           return render_template("index.html", posts = rows,n = n)
 
 
 
@@ -297,6 +312,7 @@ def update(id):
             sqlcommand1(dbstart(),'UPDATE todo SET title = %s,detail = %s,due = %s WHERE id= %s',(title,detail,due,id))
             return redirect("/")
 
+#マイページ
 @app.route('/mypage')
 def mypage():
     if not session.get('logged_in'):
