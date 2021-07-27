@@ -286,9 +286,6 @@ def update(id):
             return redirect("/")
 
 
-#LINEの返信
-
-
 
 if __name__=="__main__":
     app.run(debug=True)
