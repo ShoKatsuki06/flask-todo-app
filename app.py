@@ -8,6 +8,7 @@ from linebot import (LineBotApi, WebhookHandler)
 from linebot.exceptions import (InvalidSignatureError)
 from linebot.models import (MessageEvent, TextMessage, TextSendMessage,TemplateSendMessage,CarouselTemplate, CarouselColumn,ButtonsTemplate,MessageAction)
 import schedule
+import usergragh
 import time
 import os
 
@@ -262,9 +263,13 @@ def finish(id):
         print(date)
         num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
         sum = num[1]+1
+        usernum = selctcommand1(dbstart(),'SELECT * FROM userfinish WHERE day = %s AND username = %s LIMIT 1;',(date,name))
+        print(usernum[1])
+        usum = usernum[1]+1
         sqlcommand1(dbstart(),'UPDATE todofinish SET noa = %s WHERE day = %s;',(sum,date))
-        #glaph()
+        sqlcommand1(dbstart(),'UPDATE userfinish SET noa = %s WHERE day = %s AND username = %s;',(usum,date,name))
         import glaph
+        usergragh.userfinish(name)
         return redirect("/")
 
 #編集""
