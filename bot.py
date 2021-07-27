@@ -31,6 +31,13 @@ dns = {
 #db = MySQL(**dns)
 db = mysql.connector.connect(**dns)
 
+def a(id,text_message):
+    try:
+      to = id
+      line_bot_api.push_message(to, TextSendMessage(text=text_message))
+    except LineBotApiError as e:
+      print(e)
+
 if db.is_connected():
     print("データベースへの接続が成功しました。")
 else:
@@ -40,35 +47,29 @@ else:
 cursor = db.cursor(buffered=True)
 cursor.execute("USE heroku_fab7e2e9408003b")
 db.commit()
+sql = 'SELECT * FROM dbuser'
 db.ping(reconnect=True)
-cursor.execute('SELECT * FROM todo')
-row = cursor.fetchall()
+cursor.execute(sql)
+users = cursor.fetchall()
 db.commit()
 
-text_message = ("あなたの残っているTodoは\r\n----------------\r\n")
-#Todoの書き出し
-for r in row :
-    rm = (r[1]+","+r[2]+","+str(r[3]))
-    rmessage = ("{}\r\n----------------\r\n".format(rm))
-    text_message = text_message + rmessage
-#ラインで送るやつのメソッド定義
+for user in users:
+    userid = user[3]
+    db.ping(reconnect=True)
+    cursor.execute('SELECT * FROM todo WHERE (userid = %s) ',(userid,))
+    row = cursor.fetchall()
+    db.commit()
 
-def a():
-    try:
-      to = "U883f757af043b8f61cc96221b20c91d5"
-      line_bot_api.push_message(to, TextSendMessage(text="マルチキャストテスト"))
-    except LineBotApiError as e:
-      print(e)
+    text_message = ("あなたの残っているTodoは\r\n----------------\r\n")
+    #Todoの書き出し
+    for r in row :
+        rm = (r[1]+","+r[2]+","+str(r[3]))
+        rmessage = ("{}\r\n----------------\r\n".format(rm))
+        text_message = text_message + rmessage
+    #ラインで送るやつのメソッド定義
+    text_message = text_message + "です"
 
-def text(text_message):
-  try:
-    # ラインユーザIDは配列で指定する。
-    line_bot_api.multicast(
-    [LINE_USER_ID], TextSendMessage(text=text_message))
-  except LineBotApiError as e:
-    # エラーが起こり送信できなかった場合
-    print(e)
-#送信
-text_message = text_message + "です"
-#text(text_message)
-a()
+    a(userid,text_message)
+
+
+    #送信
