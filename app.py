@@ -201,15 +201,18 @@ def index():
            import news
            db = dbstart()
            name = session.get('name')
-           sql = 'SELECT * FROM todo LIMIT 10;'
+           sql = 'SELECT * FROM todo ;'
            rows = selctcommand(db,sql)
+           date = datetime.date.today()
+           num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+           sum=num[1]
            ne =  news.check()
            n = '今日のニュースは'
            for new in ne:
                ne = (new+' ')
                n = n+ne
            print(n)
-           return render_template("index.html", posts = rows,n = n)
+           return render_template("index.html", posts = rows,n = n,num=sum)
         elif request.method =='POST':#登録
            name = session.get('name')#これかいたらできるよ
            userid = session.get('userid')
@@ -226,14 +229,17 @@ def index():
            db = dbstart()
            name = session.get('name')
            sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
+           date = datetime.date.today()
            rows = selctcommand2(db,sql,(name,))
+           num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+           sum = num[1]
            ne =  news.check()
            n = '今日のニュースは'
            for new in ne:
                ne = (new+' ')
                n = n+ne
            print(n)
-           return render_template("index.html", posts = rows,n = n)
+           return render_template("index.html", posts = rows,n = n,num = sum)
 
 
 
@@ -325,8 +331,9 @@ def mypage():
         for finish in finishs:
             number = number + finish[1]
         average = number / len(finishs)
+        f_average = format(average,'.2f')
 
-        return render_template("mypage.html",name=name,number=number,average=average)
+        return render_template("mypage.html",name=name,number=number,average=f_average)
 
 
 

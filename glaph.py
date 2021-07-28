@@ -47,7 +47,7 @@ plt.plot(x,y)
 plt.title('Recent achievements')
 plt.ylabel('Achievements')
 plt.xlabel('day')
-plt.ylim(0, 7)
+plt.ylim(0, 30)
 plt.grid()
 
 #plt.figure(figsize=(9, 9))
