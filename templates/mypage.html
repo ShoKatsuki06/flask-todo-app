@@ -5,6 +5,8 @@
   <h1>マイページ</h1>
   <p>ようこそ</p>
   <p>{{ name }}さん</p>
+  <<p>あなたの総TODO達成数は{{number}}です</p>
+  <<p>あなたの平均TODO達成数は{{average}}です</p>
   <p><img src="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}"></p>
 </div>
 

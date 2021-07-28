@@ -320,7 +320,13 @@ def mypage():
         return render_template('login.html')
     else:
         name = session.get('name')
-        return render_template("mypage.html",name=name)
+        finishs = selctcommand2(dbstart(),'SELECT * FROM todofinish WHERE username = %s',(name,))
+        number = 0
+        for finish in finishs:
+            number = number + finish[1]
+        average = number / len(finishs)
+
+        return render_template("mypage.html",name=name,number=number,average=average)
 
 
 
