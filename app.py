@@ -341,6 +341,7 @@ def mypage():
             return render_template("mypage.html",name=name,number=number,average=f_average)
         else:
             f_average=0
+            usergragh.userfinish(name)
             return render_template("mypage.html",name=name,number=number,average=f_average)
 
 
