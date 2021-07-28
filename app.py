@@ -333,7 +333,7 @@ def mypage():
         finishs = selctcommand2(dbstart(),'SELECT * FROM userfinish WHERE username = %s',(name,))
         number = 0
         for finish in finishs:
-        　　　number = number + finish[1]
+            number = number + finish[1]
 
         if len(finishs)!=0:
             average = number / len(finishs)
