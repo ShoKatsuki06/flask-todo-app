@@ -9,7 +9,7 @@ body {
 main {
   display: flex;
 }
-header {
+.header {
  width: 100%;
  background: #184da3;
  color: #fff;
@@ -17,6 +17,7 @@ header {
  padding: 5px 0;
  position: fixed;
  top: 0; /*上に固定*/
+ left: 19vh;
 }
 footer {
  width: 100%;
@@ -38,7 +39,7 @@ footer {
 
 /*スライダーメニュー*/
 .side {
-  width: 10%;
+  width: 20vh;
   height: 100vh;
   position: fixed;
   text-align: center;
