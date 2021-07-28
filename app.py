@@ -320,7 +320,7 @@ def mypage():
         return render_template('login.html')
     else:
         name = session.get('name')
-        finishs = selctcommand2(dbstart(),'SELECT * FROM todofinish WHERE username = %s',(name,))
+        finishs = selctcommand2(dbstart(),'SELECT * FROM userfinish WHERE username = %s',(name,))
         number = 0
         for finish in finishs:
             number = number + finish[1]
