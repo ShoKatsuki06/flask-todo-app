@@ -254,6 +254,7 @@ footer {
   color: #1d59be;
 }
 
+/*汎用的なやつ*/
 .button{
   margin-top: 5vh;
   color: #1d59be;
@@ -268,4 +269,13 @@ footer {
 .button:hover {
   background: #1d59be;
   color: #ffffffff;
+}
+
+/*詳細ページ*/
+.detail {
+  padding: 5px;
+  font-size: 10vh;
+  border-collapse: separate;
+  border-spacing: 0px 0.5rem;
+  background-color: rgba(0,0,0,0.3);
 }
