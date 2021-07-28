@@ -186,8 +186,12 @@ def input():
     name = request.form.get('name')
     pas = request.form.get('pass')
     sql = "INSERT INTO dbuser (name,pass) VALUES (%s, %s)";
-    sqlcommand1(dbstart(),sql,(name,pas))
-    return redirect("/")
+    try:
+        sqlcommand1(dbstart(),sql,(name,pas))
+        return redirect("/")
+    except:
+        return render_template('error.html')
+
 
 
 
