@@ -222,6 +222,7 @@ def index():
            sendText(userid,"TODOを登録しました\r\n{},{},{},{}".format(title,detail,due,name))
            return redirect('/')
         else:
+           import news
            db = dbstart()
            name = session.get('name')
            sql = 'SELECT * FROM todo WHERE username = %s LIMIT 10;'
