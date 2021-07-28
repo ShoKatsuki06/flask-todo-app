@@ -274,7 +274,7 @@ footer {
 /*詳細ページ*/
 .detail {
   padding: 5px;
-  font-size: 10vh;
+  font-size: 8vh;
   border-collapse: separate;
   border-spacing: 0px 0.5rem;
   background-color: rgba(0,0,0,0.3);
