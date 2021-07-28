@@ -3,9 +3,8 @@
 {% block body %}
 <div class="top">
 <h1>編集</h1>
-<div class="form">
   <form action="/update/{{ post[0]}}" method='POST'>
-    <table class="contact_form">
+    <table class="form">
       <tr>
         <th><label for="title">タイトル</label></th>
         <td><input type="text" name="title" value={{ post[1] }}></td>
@@ -19,9 +18,8 @@
         <td><input type="datetime-local" name="due" value={{ post[3] }}></td>
       </tr>
     </table>
-    <button type="submit" name="Change" value="Change" class="confirm_btn">更新</button>
+    <button type="submit" name="Change" value="Change" class="form_btn">更新</button>
   </form>
-</div>
 </div>
 
 {% endblock %}

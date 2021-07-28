@@ -3,9 +3,8 @@
 {% block body %}
 <div class="top">
 <h1>TODO登録画面</h1>
-<div class="form">
   <form action="/" method="POST">
-    <table  class="contact_form">
+    <table  class="form">
       <tr>
         <th class="required"><label for="title">タイトル</label></th>
         <td><input type="text" name="title" placeholder="タイトル" required></td>
@@ -19,9 +18,8 @@
         <td><input type="datetime-local" name="due" required></td>
       </tr>
     </table>
-    <button type="submit" name="Create" value="Create" class="confirm_btn">登録</button>
+    <button type="submit" name="Create" value="Create" class="form_btn">登録</button>
   </form>
-</div>
 </div>
 
 {% endblock %}

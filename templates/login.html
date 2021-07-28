@@ -3,9 +3,8 @@
 {% block body %}
 <div class="top">
 <h1>ログイン画面</h1>
-<div class="form">
   <form action="/login" method="POST" id="form">
-    <table  class="contact_form">
+    <table  class="form">
       <tr>
         <th><label for="name">ユーザー名</label></th>
         <td><input type="text" name="name" placeholder="ユーザー名" required></td>
@@ -16,10 +15,9 @@
         <td><button id="display">表示</button></td>
       </tr>
     </table>
-    <button type="submit" name="Login" value="Login" class="confirm_btn">ログイン</button>
+    <button type="submit" name="Login" value="Login" class="form_btn">ログイン</button>
   </form>
   <button type="button" onclick="location.href='/inpuut'" class="button">新規登録はこちら</button>
-</div>
 </div>
 
 {% endblock %}
