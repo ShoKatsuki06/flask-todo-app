@@ -333,11 +333,18 @@ def mypage():
         finishs = selctcommand2(dbstart(),'SELECT * FROM userfinish WHERE username = %s',(name,))
         number = 0
         for finish in finishs:
-            number = number + finish[1]
-        average = number / len(finishs)
-        f_average = format(average,'.2f')
+        　　　number = number + finish[1]
 
-        return render_template("mypage.html",name=name,number=number,average=f_average)
+        if len(finishs)!=0:
+            average = number / len(finishs)
+            f_average = format(average,'.2f')
+            return render_template("mypage.html",name=name,number=number,average=f_average)
+        else:
+            f_average=0
+            return render_template("mypage.html",name=name,number=number,average=f_average)
+
+
+
 
 
 
