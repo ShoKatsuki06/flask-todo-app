@@ -7,7 +7,7 @@
   <p>{{ name }}さん</p>
   <p>あなたの総TODO達成数は{{number}}です</p>
   <p>あなたの平均TODO達成数は{{average}}です</p>
-  <p><img src="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}"></p>
+  <p><a href="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}" data-lightbox="individual" data-title="画像拡大"><img src="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}"></a></p>
 </div>
 
 {% endblock %}
