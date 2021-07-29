@@ -8,6 +8,7 @@
   <h1>トップページ</h1>
   <p><button type="button" onclick="location.href='/create'" class="form_btn">新規タスクを作成</button></p>
   <p><a href="{{ url_for('static',filename='img/f_gragh.png') }}" data-lightbox="team" data-title="画像拡大"><img src="{{ url_for('static',filename='img/f_gragh.png') }}"></a></p>
+  <p><a href="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}" data-lightbox="team" data-title="画像拡大"><img src="{{ url_for('static',filename='img/f_gragh{}.png'.format(name)) }}"></a></p>
   <p>本日のチームの総TODO達成数は{{num}}です</p>
 <div class="multiple_table">
 {% for post in posts %}

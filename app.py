@@ -209,6 +209,7 @@ def index():
            rows = selctcommand(db,sql)
            date = datetime.date.today()
            num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+           usergragh.userfinish(name)
            sum=num[1]
            ne =  news.check()
            n = '今日のニュースは'
@@ -216,7 +217,8 @@ def index():
                ne = (new+' ')
                n = n+ne
            print(n)
-           return render_template("index.html", posts = rows,n = n,num=sum)
+
+           return render_template("index.html", posts = rows,n = n,num=sum,name=name)
         elif request.method =='POST':#登録
            name = session.get('name')#これかいたらできるよ
            userid = session.get('userid')
@@ -236,6 +238,7 @@ def index():
            date = datetime.date.today()
            rows = selctcommand2(db,sql,(name,))
            num = selctcommand1(dbstart(),'SELECT * FROM todofinish WHERE day = %s LIMIT 1;',(date,))
+           usergragh.userfinish(name)
            sum = num[1]
            ne =  news.check()
            n = '今日のニュースは'
@@ -243,7 +246,7 @@ def index():
                ne = (new+' ')
                n = n+ne
            print(n)
-           return render_template("index.html", posts = rows,n = n,num = sum)
+           return render_template("index.html", posts = rows,n = n,num = sum,name=name)
 
 
 
