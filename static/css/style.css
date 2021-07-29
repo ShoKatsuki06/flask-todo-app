@@ -18,6 +18,7 @@ main {
  position: fixed;
  top: 0; /*上に固定*/
  left: 19vh;
+ z-index: 1;
 }
 footer {
  width: 100%;
@@ -104,6 +105,28 @@ footer {
   width: auto;
   margin-top: 5vh;
   height: 35vh;
+}
+
+/*topの画像や説明文*/
+.team p {
+  font-size: 2vh;
+}
+.individual {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 0;
+}
+.individual p {
+  font-size: 2vh;
+}
+.individual img {
+  width: auto;
+  height: 15vh;
+}
+.solid{
+  display: inline-block;
+  border-bottom: solid 1.5px #000000;
 }
 
 /*複数のテーブルを見やすいように*/
