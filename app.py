@@ -127,7 +127,7 @@ def response_message(event):
                                        title=profile.display_name,
                                        text=f"User Id: {profile.user_id[:5]}...\n"
                                             f"Status Message: {status_msg}",
-                                       actions=[MessageAction(label="成功", text="次は何を実装しましょうか？")]))
+                                       actions=[MessageAction(label="成功", text="登録完了")]))
     id = profile.user_id
     name =event.message.text
     slsql = 'SELECT * FROM dbuser'
